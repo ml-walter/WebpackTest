@@ -1,8 +1,5 @@
 # 我是專案名稱
 
-* bizdev.medialand.com.tw/milkmidi
-* 主機：220.128.166.83
-* remote：/bizdev.medialand.com.tw/milkmidi
 
 # template for nodejs 6.x
 
