@@ -43,7 +43,7 @@ var config = {
         },
         root: [
             path.resolve( 'src/js' ),
-            path.resolve( 'src/html' ),
+            path.resolve( 'src/jade' ),
             path.resolve( 'src/img' ),
             path.resolve( 'src/scss' ),
             path.resolve( 'src/' ),
@@ -107,11 +107,11 @@ config.module = {
     noParse: path.resolve( 'src/lib' ),    
     loaders: [
         {
-            test: /\.html$/,
-            include: path.resolve( 'src/html' ),
+            test: /\.jade$/,
+            include: path.resolve( 'src/jade' ),
             exclude: /node_modules/,
             loader: htmlExtractText.extract(
-                `html?name=[name].html&interpolate=require`,
+                `html?name=[name].html&interpolate=require!jade-html?pretty=true`,
                 {
                     publicPath: '' // html 圖檔路徑
                 }

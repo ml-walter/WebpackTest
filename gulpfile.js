@@ -112,12 +112,12 @@ gulp.task( 'webpack-dev-server', ( cb ) => {
 gulp.task( 'p', ( cb ) => {
     process.env.NODE_ENV = 'production';
     var config = require( './webpack.config' );
-    config.plugins.push(
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin( {
-            compress: { warnings: false }
-        })
-    );
+    // config.plugins.push(
+    //     new webpack.optimize.DedupePlugin(),
+    //     new webpack.optimize.UglifyJsPlugin( {
+    //         compress: { warnings: false }
+    //     })
+    // );
     webpack( config, ( err, stats ) => {
         if ( err ) {
             throw new gutil.PluginError( "webpack", err );

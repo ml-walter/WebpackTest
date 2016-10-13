@@ -1,6 +1,11 @@
 import 'index.scss';
-import 'index.html';
-// import 'index2.html';
+import 'index.jade';
 
-var o = require("./action.js");
-// o.
+const Action = require("./action.js");
+$(function (){
+    
+    var action = new Action(document.getElementById('croppie_img'));
+    action.bindCroopie();
+    // action.on('photoReady', () => {
+    // });
+})
