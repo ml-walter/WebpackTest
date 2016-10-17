@@ -5,13 +5,19 @@ html
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous")
         link(href="./asset/css/index.css", rel="stylesheet")
 
+        script(src="./asset/js/vendor/all.js")
         script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous")
+        
         script(src="./asset/js/index.js")
     body
     .container-fluid
         .row
-            #croppie_img
-                input(id="croppie_file" type="file")
-                input(id="croppie_uploadPhoto" type="button" value="從相本選照片")
-                input(id="croppie_range" value="0" type="range" min="0" max="180")
+            .col-sm-12
+                .upload_input_wrap
+                    input(type="file" accept="image/*" class="upload_input")
+                    input(type="button" class="get_img")
+                .hit_area
+                    .rectangle_area
+                    canvas(id="canvas" width="500" height="500" )
+                img(id="testImg" width="500" height="500")

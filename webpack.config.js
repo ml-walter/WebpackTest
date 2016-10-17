@@ -28,8 +28,8 @@ var cssExtractText = new ExtractTextPlugin( "asset/css/[name].css" );
 var config = {
     context: path.resolve( 'src' ),
     entry: {
-        index: [ 'js/entry.js' ],
-        // vendor: ['jquery', 'TweenMax']
+        index: [ 'js/entry.js' ]
+        // vendor: ['CanvasResize']
     },
     output: {
         publicPath: '',   // css?sourceMap 會讓 background-image url 失效，所以要加網址
@@ -38,8 +38,9 @@ var config = {
     },
     resolve: {
         alias: {    // 遇到程式 require 或 webpack.config.js 內提到 'jquery' 這個 module 的時候
-            "jquery": "lib/jquery.min.js",
-            "TweenMax": "lib/TweenMax.min.js"
+            // "jquery": "lib/jquery.min.js",
+            // "TweenMax": "lib/TweenMax.min.js",
+            // "CanvasResize":"lib/all.js"
         },
         root: [
             path.resolve( 'src/js' ),
@@ -96,11 +97,11 @@ config.devServer = {
     }
 };
 
-var sassLoader = cssExtractText.extract( `css?sourceMap!autoprefixer!sass?sourceMap`, {  // 這樣 background:url 就可以吃 url-loader, 但就不支援 hotreload
+var sassLoader = cssExtractText.extract( `css!autoprefixer!sass`, {  // 這樣 background:url 就可以吃 url-loader, 但就不支援 hotreload
     publicPath: '../../'
 });
 if ( DEV_MODE ) {
-    sassLoader = `style!css?sourceMap=${DEV_MODE}!autoprefixer!sass?sourceMap=${DEV_MODE}`;
+    sassLoader = `style!css?sourceMap!autoprefixer!sass`;
 }
 
 config.module = {
@@ -131,6 +132,13 @@ config.module = {
             query: {
                 presets: [ "es2015", "stage-2" ]
             }
+        },
+        {
+            test:/\.js$/,
+            include:path.resolve("src/lib"),
+            exclude: /node_modules/,
+            loader:"file?name=asset/js/vendor/[name].[ext]"
+
         },
         {
             //url-loader, 小於 4 K 的圖片會變 base64, 其他就搬到 dist/asset/img/
