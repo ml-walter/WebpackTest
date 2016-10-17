@@ -14,10 +14,10 @@ html
     .container-fluid
         .row
             .col-sm-12
-                .upload_input_wrap
-                    input(type="file" accept="image/*" class="upload_input")
-                    input(type="button" class="get_img")
                 .hit_area
                     .rectangle_area
                     canvas(id="canvas" width="500" height="500" )
-                img(id="testImg" width="500" height="500")
+                .upload_input_wrap
+                    input(type="file" accept="image/*" class="upload_input")
+                    input(id="getRectangleResult" type="button")
+                img(id="RectangleImg")
