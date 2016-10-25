@@ -1,16 +1,21 @@
 const HammerEffect = require('./HammerEffect');
+const canvas = $('#canvas').get(0);
+const hitArea = $('.hit_area').get(0);
+const EventEmitter = require('events').EventEmitter;
 
-class CropImage {
+class CropImage extends EventEmitter{
     constructor() {
-        var CROP_IMAGE_SIZE = 900;
-        var hitArea = $('.hit_area').get(0);
-        var canvas = $('#canvas').get(0);
-        var hammer = new HammerEffect(hitArea, data => this.drawCanvas(data));
+        super();
+
+        var CROP_IMAGE_SIZE = 800;
+        // var hitArea = $('.hit_area').get(0);
+        // var canvas = $('#canvas').get(0);
+        this.hammer = new HammerEffect(hitArea, data => this.drawCanvas(data));
         this.source = new Image();
 
         // event trigger
         this.source.onload = (e) => {
-            hammer.init(this.source.width, this.source.height, canvas.width, canvas.height)
+            this.hammer.init(this.source.width, this.source.height, canvas.width, canvas.height)
         };
 
         $(".upload_input").on("change", (e) => {
@@ -31,6 +36,10 @@ class CropImage {
                 }
             });
         });
+
+        $(window).resize((e) => {
+            this.canvasResize();
+        }).resize();
 
         $('#getRectangleResult').on('click', e => {
             this.getRectangleResult();
@@ -57,6 +66,7 @@ class CropImage {
             ctx.restore();
         }
     }
+
     getRectangleResult() {
         //Get rectangle_area's coordinate and width and height in webpage
         var _rectangle = $('.rectangle_area'),
@@ -93,9 +103,21 @@ class CropImage {
         rectangle_canvas.width = rectangle_result.width;
         rectangle_canvas.height = rectangle_result.height;
         var rectangle_ctx = rectangle_canvas.getContext('2d');
+
+        // rectangle_ctx.width= $(hitArea).width();
+        // rectangle_ctx.height= $(hitArea).height();
+
         rectangle_ctx.drawImage(_canvas_ctx, rectangle_result.x, rectangle_result.y, rectangle_result.width, rectangle_result.height, 0, 0, rectangle_result.width, rectangle_result.height);
+
         $('#RectangleImg').attr('src', rectangle_canvas.toDataURL("image/jpeg"));
 
+        this.emit('complete',rectangle_canvas.toDataURL("image/jpeg"));
+    }
+
+    canvasResize() {
+        canvas.width=$(hitArea).width();
+        canvas.height=$(hitArea).height();
+        this.hammer.updateElementTransform();
     }
 }
 

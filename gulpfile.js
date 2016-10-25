@@ -8,6 +8,7 @@ var gulp = require( 'gulp' ),
     merge = require( 'merge-stream' ),
     childProcess = require( 'child_process' ),
     env = require( 'gulp-env' ),
+    rimraf = require('rimraf'),
     chalk = require( 'chalk' );                 // jshint ignore:line
 
 const DEV_MODE = gutil.env._[ 0 ] != 'p' && !gutil.env._[ 0 ] != 'pp';      // jshint ignore:line
@@ -35,6 +36,10 @@ if ( DEV_MODE ) {
     console.log( chalk.bgCyan.white.bold( str ) );
 }
 
+gulp.task( 'rimraf', function ( cb ) {
+    console.log( 'rimraf' );
+    rimraf( './dist', cb );
+});
 // 只要是底線開頭的檔案，都不壓 K ，直接搬到 src/img 資料夾下
 gulp.task( 'm', () => {
     var IMG_SRC = [ 'src/img_src/**/*.+(jpg|png)', '!src/img_src/_*' ];
@@ -67,7 +72,6 @@ gulp.task( 'm', () => {
         }) );
     return merge( taskOtherIMG, taskIMGSRC );
 });
-
 
 gulp.task( 'webpack-dev-server', ( cb ) => {
     process.env.NODE_ENV = 'development';
@@ -108,8 +112,7 @@ gulp.task( 'webpack-dev-server', ( cb ) => {
     });
 });
 
-
-gulp.task( 'p', ( cb ) => {
+gulp.task( 'p',['rimraf','m'], ( cb ) => {
     process.env.NODE_ENV = 'production';
     var config = require( './webpack.config' );
     // config.plugins.push(

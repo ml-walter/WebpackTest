@@ -145,7 +145,7 @@ config.module = {
             test: /\.(png|jpg|PNG|JPG)$/,
             include: path.resolve( 'src/img' ),
             exclude: /node_modules/,
-            loader: 'url-loader?limit=4096&name=asset/[path][name].[ext]?[hash:6]'
+            loader: 'url-loader?limit=1&name=asset/[path][name].[ext]?[hash:6]'
         },
         {
             // 搬動有用到的 asset 檔案

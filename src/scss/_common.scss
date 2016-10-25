@@ -1,0 +1,18 @@
+﻿@charset "utf-8";
+
+$rwdS: 480px;
+$rwdM: 640px;
+$rwdL: 960px;
+$rwdX: 1280px;
+
+$fontNoto: "Noto Sans", "Noto Sans CJK TC";
+$fontHei: Helvetica, Verdana, Arial, "微軟正黑體", "Microsoft JhengHei", "儷黑 Pro", "LiHei Pro", sans-serif;
+$fontMing: "Times New Roman", "新細明體", "PMingLiU", serif;
+$fontMono: "Monaco", "Courier New", monospace;
+
+$easeInBack: cubic-bezier(0.600, -0.280, 0.735, 0.045);
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$easeInOutBack: cubic-bezier(0.680, -0.550, 0.265, 1.550);
+$easeInCubic: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+$easeOutCubic: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1.000);
